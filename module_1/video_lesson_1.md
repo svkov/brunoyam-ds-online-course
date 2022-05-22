@@ -9,7 +9,7 @@ Data Scientist-ы разрабатывают специальные самооб
 
 Для того, чтобы понять как работают Data Scientist-ы, давайте рассмотрим как выглядит жизнейнный цикл data science продукта
 
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/de08ad6c-20e4-47dd-a4a9-9c3cec5126fe/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220520%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220520T111338Z&X-Amz-Expires=86400&X-Amz-Signature=323377ac772e6489e937b217a5f6c98a6a997ef2725ed194bb17777e305980b5&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" width=600 height=600>
+<img src="../images/data-science-lifecycle.png" width=600 height=500>
 
 Давайте представим, что мы работаем в фирме, которая занимается разработкой ПО. К нам приходит заказчик и просит сделать для него проект.
 
