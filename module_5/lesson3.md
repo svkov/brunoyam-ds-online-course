@@ -1,11 +1,5 @@
 # Урок 3. Библиотека pandas
 
-Текст: ([https://habr.com/ru/company/ruvds/blog/494720/](https://habr.com/ru/company/ruvds/blog/494720/))
-
-- Зачем нужна библиотека pandas
-- Объект Series, индекс
-- Объект DataFrame, основные операции, понятие axis
-
 ## Библиотека pandas
 
 Библиотека `pandas` позволяет удобно работать с табличными данными. Во многих задачах `pandas` позволяет заменить Excel, предоставляя возможность легко фильтровать, сортировать и агрегировать данные.
@@ -360,6 +354,12 @@ month
 5   15.291367   0.000000    0.0
 ```
 
-```python3
+## Что дальше?
 
-```
+Pandas - очень большая библиотека и выше было описание лишь небольшого количества ее функционала. Чем дольше вы будете с ней работать, тем больше будете про нее узнавать. Но чтобы облегчить ваш путь, ниже приводим набор ссылок по полезным функциям, которые делают довольно специфичные операции над данными. Они используются довольно редко, но иногда задача сильно облегчается, если использовать их. Приводим материалы на документацию pandas (первоисточник), при необходимости можно найти эти же материалы и на руссском языке.
+
+- [Multiindex](https://pandas.pydata.org/docs/user_guide/advanced.html)
+- [Melt](https://pandas.pydata.org/docs/reference/api/pandas.melt.html)
+- [Pivot_table](https://pandas.pydata.org/docs/reference/api/pandas.pivot_table.html)
+- [Explode](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.explode.html)
+- [Stack](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.stack.html) & [Unstack](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.unstack.html)
