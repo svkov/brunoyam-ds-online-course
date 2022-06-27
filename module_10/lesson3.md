@@ -104,10 +104,10 @@ y = data.target
 x = (x - x.mean()) / x.std()
 
 # Можно посмотреть на картинку
-plt.matshow(x[1].reshape(8, 8))
+plt.matshow(x[1].reshape(8, 8), cmap='gray')
 
 # Разделим на train и test
-x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8)
+x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=0)
 ```
 
 На практике, конечно, нам не нужно постоянно думать о том, какая функция ошибки используется и как ее оптимизировать. Вместо этого мы просто импортируем класс `LogisticRegression` и используем его точно также как и линейную регрессию:
