@@ -34,25 +34,20 @@
 
 Плохой график:
 
-**вставить картинку**
+![bad_plot](../images/bad_plot.jpg)
 
 График получше:
 
-**вставить картинку**
+![good_plot](../images/good_plot.jpg)
 
-Плохой график:
+Полезные ссылки:
 
-**вставить картинку**
+- [11 правил визуализации данных](https://habr.com/ru/company/netologyru/blog/341364/)
 
-График получше:
+- [Как строить красивые графики на Python с Seaborn](https://habr.com/ru/company/otus/blog/540526/)
 
-**вставить картинку**
+- [Чем можно вдохновляться при построении графиков](https://www.reddit.com/r/dataisbeautiful/)
 
-Плохой график:
+- [Что можно сделать при помощи Plotly](https://tproger.ru/translations/python-data-vizualization/)
 
-**вставить картинку**
-
-График получше:
-
-**вставить картинку**
-
+- [Шпаргалка по Plotly](https://habr.com/ru/post/502958/)

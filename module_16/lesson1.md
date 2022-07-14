@@ -82,6 +82,8 @@
 
 Нет ничего сложного в том, чтобы результаты исследований были воспроизводимы в смысле повторяемости исследований. Для этого достаточно аккуратно писать код и придерживаться простых правил, сохраняя все результаты на каждом шаге. На первый взгляд может показаться, что это избыточно, но на деле это экономит много времени. Для того, чтобы эффективно соблюдать все эти правила, придумали специальные инструменты, о которых мы поговорим в следующем уроке.
 
+## Ссылки
+
 - [Кризис машинного обучения в научных исследованиях](https://tproger.ru/translations/machine-learning-crisis)
 - [Reproducibility vs. Replicability: A Brief History of a Confused Terminology](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5778115)
 - [Repeatability, Reproducibility, and Replicability: Tackling the 3R challenge in biointerface science and engineering](https://avs.scitation.org/doi/full/10.1116/1.5093621)
