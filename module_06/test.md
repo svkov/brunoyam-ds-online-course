@@ -25,13 +25,13 @@
 
 4. Имеются элементы запроса: 
 
-1 SELECT employees.name, departments.name; 
+1 SELECT employees.name, departments.name
 
-2 ON employees.department_id=departments.id; 
+2 ON employees.department_id=departments.id
 
-3 FROM employees; 
+3 FROM employees
 
-4 LEFT JOIN departments. 
+4 LEFT JOIN departments
 
 В каком порядке их нужно расположить, чтобы выполнить поиск имен всех работников со всех отделов?
 
