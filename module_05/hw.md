@@ -1,6 +1,6 @@
 # Домашняя работа
 
-Перед решением домашней работы рекомендуется посмотреть [второй](https://github.com/svkov/brunoyam-ds-online-notebooks/blob/main/notebooks/02-pandas-numpy-matplotlib.ipynb) и [третий](https://github.com/svkov/brunoyam-ds-online-notebooks/blob/main/notebooks/03-advanced_pandas-matplotlib.ipynb) ноутбук в репозитории на GitHub и решить задачи оттуда. Это необязательно, но точно поможет набить руку на более простых задачах.
+Перед решением домашней работы, чтобы набить руку, необходимо скачать [второй](https://github.com/svkov/brunoyam-ds-online-notebooks/blob/main/notebooks/02-pandas-numpy-matplotlib.ipynb) и [третий](https://github.com/svkov/brunoyam-ds-online-notebooks/blob/main/notebooks/03-advanced_pandas-matplotlib.ipynb) ноутбук в репозитории на GitHub и решить задачи оттуда. Сдайте эти ноутбуки вместе с домашним заданием.
 
 ## Easy
 
