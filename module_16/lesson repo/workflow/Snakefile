@@ -1,0 +1,13 @@
+
+include: 'rules/data.smk'
+include: 'rules/forecast.smk'
+include: 'rules/reports.smk'
+
+
+rule all:
+    input:
+        rules.all_data.input,
+        rules.all_forecast.input,
+        rules.all_reports.input
+        
+    

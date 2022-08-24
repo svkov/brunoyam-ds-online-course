@@ -1,0 +1,19 @@
+name: ml-course-brunoyam
+channels:
+  # Репозитории, из которых будут подтягиваться пакеты
+  - conda-forge
+  - anaconda
+dependencies:
+  # Используемые пакеты
+  - numpy
+  - pandas
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - seaborn
+  - jupyter
+  - black
+  - click
+  - black
+  - flake8
+  - snakemake
