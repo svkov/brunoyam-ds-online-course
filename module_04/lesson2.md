@@ -79,8 +79,7 @@ $$Ира_w * B =
 \begin{bmatrix}
 1 * 0.1 + 4 * 0.9 + 8 * 0.5 \\
 2 * 0.1 + 5 * 0.9 + 9 * 0.5
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 7.7 \\
 9.2
@@ -95,19 +94,16 @@ $$W * B =
 \begin{bmatrix}
 0.1 & 0.9 & 0.5 \\
 0.3 & 0.5 & 0.1
-\end{bmatrix}
-*
+\end{bmatrix} *
 \begin{bmatrix}
 1 & 2 \\
 4 & 5 \\
 8 & 9
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 0.1 * 1 + 0.9 * 4 + 0.5 * 8 & 0.1 * 2 + 0.9 * 5 + 0.5 * 9 \\
 0.3 * 1 + 0.5  * 4 + 0.1 * 8 & 0.3 * 2 + 0.5 * 5 + 0.1 * 9
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 7.7 & 9.2 \\
 3.1 & 4.0
