@@ -32,8 +32,7 @@ $$
 A + B = \begin{bmatrix}
 7 + 1 & 8 + 2 & 9 + 3 \\
 0 + 4 & 1 + 5 & 2 + 6
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 8 & 10 & 12 \\
 4 & 6 & 8
