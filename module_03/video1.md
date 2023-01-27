@@ -51,19 +51,10 @@ print(result)
 ```python
 n = int(input())
 
-if n >= 1:
-    is_power_of_2 = True
-else:
-    is_power_of_2 = False
+while n % 2 == 0:
+    n /= 2
 
-while n > 1:
-    if n % 2 == 0:
-        n //= 2
-    else:
-        is_power_of_2 = False
-        n = 0
-
-if is_power_of_2:
+if n == 1:
     print('Является степенью 2')
 else:
     print('Не является степенью 2')
