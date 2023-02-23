@@ -1,11 +1,12 @@
 1. Пусть $(X\sim F(x))$ — случайная величина с произвольным распределением, неизвестным математическим ожиданием $(\mathbb{E}X)$ и известной дисперсией $(\mathbb{D}X)$. Как выглядит доверительный интервал для $(\mathbb{E}X)$ с приближённым уровнем доверия $(100(1-\alpha))$%?
 
-$(\bar{X}_n \pm z_{1-\frac{\alpha}{2}} \frac{\mathbb{D}X}{\sqrt{n}})$ 
+$$(\bar{X}_n \pm z_{1-\frac{\alpha}{2}} \frac{\mathbb{D}X}{\sqrt{n}})$$ 
 
-$(\bar{X}_n \pm z_{1-\alpha} \sqrt{\frac{\mathbb{D}X}{n}})$
+$$(\bar{X}_n \pm z_{1-\alpha} \sqrt{\frac{\mathbb{D}X}{n}})$$
 
-$(\bar{X}_n \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{\mathbb{D}X}{n}})$ **this**
-$(\bar{X}_n \pm t_{n-1, 1-\frac{\alpha}{2}} \sqrt{\frac{\mathbb{D}X}{n}})$
+$$(\bar{X}_n \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{\mathbb{D}X}{n}})$$ **this**
+
+$$(\bar{X}_n \pm t_{n-1, 1-\frac{\alpha}{2}} \sqrt{\frac{\mathbb{D}X}{n}})$$
 
 2. Закон больших чисел утверждает, что: 
 - чем больше единиц охвачено статистическим наблюдением,тем лучше проявляется общая закономерность; **this**
