@@ -5,7 +5,8 @@ $$(\bar{X}_n \pm z_{1-\frac{\alpha}{2}} \frac{\mathbb{D}X}{\sqrt{n}})$$
 $$(\bar{X}_n \pm z_{1-\alpha} \sqrt{\frac{\mathbb{D}X}{n}})$$
 
 $$(\bar{X}_n \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{\mathbb{D}X}{n}})$$
- **this**
+
+**this**
 
 $$(\bar{X}_n \pm t_{n-1, 1-\frac{\alpha}{2}} \sqrt{\frac{\mathbb{D}X}{n}})$$
 
