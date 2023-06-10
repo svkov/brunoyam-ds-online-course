@@ -359,6 +359,14 @@ GROUP BY date
 3. В последнем задании строить рейтинг для каждого предмета. Колонки на выходе: date, subject, name, points.
 4. (со звездочкой) В последнем задании выводить топ-3 ученика в рейтинге на каждый день. Для решения понадобится [одна из функций LAG/LEAD](http://www.sql-tutorial.ru/ru/book_lag_and_lead_functions.html). Колонки на выходе: date, name_1, name_2, name_3
 
+## Полезные ссылки
+
+- [4 ноутбук из GitHub-репозитория](https://github.com/svkov/brunoyam-ds-online-notebooks/blob/main/notebooks/04-DataBase.ipynb)
+- [Памятка по SQL](https://habr.com/ru/post/564390/)
+- [Здесь можно поработать с тестовой базой данных](https://www.w3schools.com/sql/trysql.asp?filename=trysql_op_in)
+- [Интерактивный тренажер по SQL](https://stepik.org/course/63054/promo)
+- [Нормальные формы](https://habr.com/ru/post/254773/)
+
 ## Решения
 
 1. .
