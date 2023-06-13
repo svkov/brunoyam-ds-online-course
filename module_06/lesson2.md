@@ -4,7 +4,7 @@
 
 ## Оператор SELECT
 
-При помощи оператора SELECT можно выбирать какие данные мы хотим достать из таблица. Например, можно выгрузить данные обо всех учениках при помощи такого запроса:
+При помощи оператора SELECT можно выбирать какие данные мы хотим достать из таблицы. Например, можно выгрузить данные обо всех учениках при помощи такого запроса:
 
 ```sql
 SELECT * FROM student
@@ -296,16 +296,43 @@ SELECT date(datetime) as date, student_id, SUM(value) as points FROM mark
 GROUP BY date(datetime), student_id
 ```
 
-Проверим, что все работает, сохраним все во временную таблицу:
+Увидим, что выводятся данные не по всем ученикам и датам, а только по тем, которые получали оценки в конкретные дни. Если дальше посчитать рейтинг по такой таблице, то какие-то ученики вообще в него не попадут. Для того, чтобы этого избежать, отдельно выведем для каждой даты всех учеников через `CROSS JOIN`:
 
 ```sql
-WITH aggregated_marks(date, student_id, points) AS (
-    SELECT date(datetime) as date, student_id, SUM(value) as points FROM mark
-    GROUP BY date(datetime), student_id
+SELECT 
+  DISTINCT date(datetime) as date, 
+  student.id as student_id, 
+  name 
+FROM mark, student
+```
+
+Для удобства сохраним во временную таблицу результат.
+
+```sql
+WITH dates_and_students(date, student_id, name) AS (
+    SELECT 
+      DISTINCT date(datetime) as date, 
+      student.id as student_id, 
+      name 
+    FROM mark, student
 )
 ```
 
-Теперь нам нужно определить номер каждого ученика в рейтинге. В этом нам помогут оконные функции. Благодаря оконным функциям мы можем "вспоминать" что было в предыдущих строках таблицы. Для этого нужно задать окно, в котором мы будем просматривать таблицу, и задать порядок в котором нужно пройти это окно. Например, нам нужно разбить всю таблицу на кусочки по датам и упорядочить по количеству очков, а потом вывести номер строки в каждом таком кусочке.
+Дальше нужно поджойнить эти две таблицы и положим их сразу во временную таблицу.
+
+```sql
+WITH aggregated_marks(date, student_id, points) AS (
+    WITH dates_and_students(date, student_id, name) AS (
+        SELECT DISTINCT date(datetime) as date, student.id as student_id, name FROM mark, student
+    )
+
+    SELECT dates_and_students.date, dates_and_students.student_id, SUM(value) as points FROM dates_and_students
+    LEFT JOIN mark ON date(mark.datetime) == dates_and_students.date AND mark.student_id == dates_and_students.student_id
+    GROUP BY dates_and_students.date, dates_and_students.student_id
+)
+```
+
+Теперь нам нужно определить номер каждого ученика в рейтинге. В этом нам помогут оконные функции. Благодаря оконным функциям мы можем "вспоминать" что было в предыдущих строках таблицы. Для этого нужно задать окно, в котором мы будем просматривать таблицу, и задать порядок в котором нужно пройти это окно. В нашем примере нужно разбить всю таблицу на кусочки по датам и просуммировать баллы каждого ученика за все предыдущие дни.
 
 Допустим, до применения оконной функции таблица выглядела так:
 
@@ -318,38 +345,48 @@ WITH aggregated_marks(date, student_id, points) AS (
 Синтаксис у оконной функции такой:
 
 ```sql
-SELECT date, student_id, points, ROW_NUMBER() over w as rating
+SELECT date, student_id, SUM(points) over w as cumsum 
 FROM aggregated_marks
-WINDOW w AS (PARTITION BY date ORDER BY points DESC)
+WINDOW w AS (PARTITION BY student_id ORDER BY date)
 ```
 
-При помощи `WINDOW w AS` мы говорим, что объявляем окно с именем `w`, а дальше в скобках перечисляем, что хотим разбить таблицу по полю `date` на кусочки (партиции) и каждый кусочек отсортировать по `points`. Чтобы вспомнить, что мы обходим таблицу по специальному правилу, добавим столбец `rating`. Функция `ROW_NUMBER()` является оконной и имеет смысл только если применяется к какому-то окну (то есть обязательно нужно дописать `over w`). Эта функция выведет номер строки с учетом партиции и ее упорядоченности.
+При помощи `WINDOW w AS` мы говорим, что объявляем окно с именем `w`, а дальше в скобках перечисляем, что хотим разбить таблицу по полю `student_id` на кусочки (партиции) и каждый кусочек отсортировать по `date`. Чтобы вспомнить, что мы обходим таблицу по специальному правилу, добавим столбец `cumsum`. Функция `SUM()` тут будет применяться только к окну (то есть обязательно нужно дописать `over w`).
 
 Операции `PARTITION BY` и `GROUP BY` очень похожи - они делят таблицу на кусочки по каким-то колонкам. Разница состоит в том, что после группировки количество строк в таблице станет меньше, а после применения оконной функции всегда останется тем же. Группировка агрегирует данные, окно просто задает порядок обхода таблицы.
 
 Этот запрос мы также положим во временную таблицу:
 
 ```sql
-WITH rating_table(date, student_id, points, rating) AS (
-
+WITH rating_table(date, student_id, cumsum) AS (
     WITH aggregated_marks(date, student_id, points) AS (
-        SELECT date(datetime) as date, student_id, SUM(value) as points FROM mark
-        GROUP BY date(datetime), student_id
+        WITH dates_and_students(date, student_id, name) AS (
+            SELECT DISTINCT date(datetime) as date, student.id as student_id, name FROM mark, student
+        )
+    
+        SELECT dates_and_students.date, dates_and_students.student_id, SUM(value) as points FROM dates_and_students
+        LEFT JOIN mark ON date(mark.datetime) == dates_and_students.date AND mark.student_id == dates_and_students.student_id
+        GROUP BY dates_and_students.date, dates_and_students.student_id
     )
-
-    SELECT date, student_id, points, DENSE_RANK() over w as rating
-    FROM aggregated_marks
-    WINDOW w AS (PARTITION BY date ORDER BY points DESC)
+        
+    SELECT date, student_id, SUM(points) over w as cumsum FROM aggregated_marks
+    WINDOW w AS (PARTITION BY student_id ORDER BY date)
 )
 ```
 
-Остается последнее - из этой таблицы взять всех, кто занимал первые места в рейтинге:
+Остается последнее - из этой таблицы получить для каждой даты человека с наибольшим рейтингом. Для начала посчитаем рейтинг для каждого ученика на каждый день:
 
 ```sql
-SELECT date, name, points FROM rating_table
-JOIN student ON rating_table.student_id == student.id
-WHERE rating == 1
-GROUP BY date
+SELECT date, student_id, DENSE_RANK() OVER w as rating FROM rating_table
+WINDOW w AS (PARTITION BY date ORDER BY cumsum DESC)
+```
+
+А затем обратимся к этой таблице и выведем только тех, у кого первый номер в рейтинге:
+
+```sql
+SELECT date, student_id FROM (
+    SELECT date, student_id, DENSE_RANK() OVER w as rating FROM rating_table
+    WINDOW w AS (PARTITION BY date ORDER BY cumsum DESC)
+) WHERE rating == 1
 ```
 
 ## Практика
@@ -366,77 +403,3 @@ GROUP BY date
 - [Здесь можно поработать с тестовой базой данных](https://www.w3schools.com/sql/trysql.asp?filename=trysql_op_in)
 - [Интерактивный тренажер по SQL](https://stepik.org/course/63054/promo)
 - [Нормальные формы](https://habr.com/ru/post/254773/)
-
-## Решения
-
-1. .
-
-```sql
-SELECT student.name, COUNT(*) as marks_number 
-FROM mark JOIN student 
-ON mark.student_id == student.id
-GROUP BY student.id
-```
-
-2. .
-
-```sql
-SELECT subject.name, COUNT(*) as marks_number 
-FROM mark JOIN subject
-ON mark.subject_id == subject.id
-GROUP BY subject.id
-```
-
-3. .
-
-```sql
-WITH rating_table(date, student_id, subject_id, points, rating) AS (
-
-    WITH aggregated_marks(date, student_id, subject_id, points) AS (
-        SELECT date(datetime) as date, student_id, subject_id, SUM(value) as points FROM mark
-        GROUP BY date(datetime), subject_id, student_id
-    )
-
-    SELECT date, student_id, subject_id, points, DENSE_RANK() over w as rating
-    FROM aggregated_marks
-    WINDOW w AS (PARTITION BY date, subject_id ORDER BY points DESC)
-)
-
-SELECT date, subject.name as subject_name, name as student_name, points FROM rating_table
-JOIN student ON rating_table.student_id == student.id
-JOIN subject ON rating_table.subject_id == subject.id
-WHERE rating == 1
-GROUP BY date, subject_id
-```
-
-4. Для топ-2 ниже, для топ-3 аналогично:
-
-```sql
-WITH rating_table(date, student_id, points, rating, student_id_2) AS (
-
-    WITH aggregated_marks(date, student_id, points) AS (
-        SELECT date(datetime) as date, student_id, SUM(value) as points FROM mark
-        GROUP BY date(datetime), student_id
-    )
-
-    SELECT date, student_id, points, ROW_NUMBER() over w as rating, LEAD(student_id) over w as student_id_2
-    FROM aggregated_marks
-    WINDOW w AS (PARTITION BY date ORDER BY points DESC)
-)
-
-
-SELECT 
-  date, 
-  name as name_1, 
-  points as points_1, 
-  (
-    SELECT name 
-    FROM student 
-    JOIN rating_table as r 
-    ON student.id == r.student_id_2
-  ) as name_2
-FROM rating_table
-JOIN student ON rating_table.student_id == student.id
-WHERE rating == 1
-WINDOW w AS (PARTITION BY date ORDER BY rating)
-```
